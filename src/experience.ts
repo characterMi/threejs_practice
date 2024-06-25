@@ -35,4 +35,37 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setSize(sizes.width, sizes.height);
 
-renderer.render(scene, camera);
+/**
+ * Third tutorial: Animations.
+ */
+
+// let previousTime = Date.now();
+const clock = new THREE.Clock();
+
+// gsap.to(mesh.position, { x: 1, duration: 1, delay: 1 })
+// gsap.to(mesh.position, { x: 0, duration: 1, delay: 2 })
+
+const animateCube = () => {
+  const { requestAnimationFrame } = window;
+
+  // const currentTime = Date.now();
+
+  // const deltaTime = currentTime - previousTime;
+
+  // previousTime = currentTime;
+
+  const elapsedTime = clock.getElapsedTime();
+
+  // mesh.rotation.y += 0.001 * deltaTime;
+  // mesh.rotation.y = elapsedTime;
+  mesh.position.y = Math.sin(elapsedTime);
+  mesh.position.x = Math.cos(elapsedTime);
+  camera.lookAt(mesh.position);
+  // mesh.rotation.y += 0.001;
+
+  renderer.render(scene, camera);
+
+  requestAnimationFrame(animateCube);
+};
+
+animateCube();
